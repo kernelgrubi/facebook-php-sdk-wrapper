@@ -1,0 +1,14 @@
+{
+    "name": "grubi/facebook-php-sdk-wrapper",
+    "autoload": {
+        "psr-0": {
+            "Grubi\\Facebook\\Api": "src/"
+        }
+    },
+
+    "require": {
+        "php": ">=5.3.2",
+        "kriswallsmith/buzz":">=0.9",
+        "facebook/php-sdk": "3.2.*"
+    }
+}
