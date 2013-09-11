@@ -2,6 +2,7 @@
 namespace Grubi\Facebook\Api;
 
 use Grubi\Facebook\Api\Requests\EventsRequest;
+use Grubi\Facebook\Api\Requests\UsersRequest;
 
 class Api {
     public function __construct(\Facebook $sdk = null, $appId = null, $appSecret = null) {
@@ -17,5 +18,9 @@ class Api {
 
     public function events() {
         return new EventsRequest($this->sdk);
+    }
+
+    public function users() {
+        return new UsersRequest($this->sdk);
     }
 }
