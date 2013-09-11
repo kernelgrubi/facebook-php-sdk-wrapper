@@ -1,19 +1,9 @@
 <?php
 namespace Grubi\Facebook\Api\Requests;
 
-class EventsRequest {
-    public function __construct($sdk) {
-        $this->sdk = $sdk;
-    }
-
+class EventsRequest extends BaseRequest {
     public function one() {
         return $this->sdk->api("/{$this->id}");
-    }
-
-    public function id($id) {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function users() {
