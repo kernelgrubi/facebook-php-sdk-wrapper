@@ -1,6 +1,8 @@
 <?php
 namespace Grubi\Facebook\Api\Requests;
 
+use Grubi\Facebook\Api\Iterator\FacebookIterator;
+
 class EventsRequest extends BaseRequest {
     public function one() {
         return $this->sdk->api("/{$this->id}");
@@ -11,22 +13,26 @@ class EventsRequest extends BaseRequest {
     }
 
     public function all() {
-        return $this->sdk->api("/{$this->id}/invited");
+        return false;
+    }
+
+    public function invited() {
+        return new FacebookIterator($this->sdk, "/{$this->id}/invited");
     }
 
     public function accepted() {
-        return $this->sdk->api("/{$this->id}/attending");
+        return new FacebookIterator($this->sdk, "/{$this->id}/attending");
     }
 
     public function denied() {
-        return $this->sdk->api("/{$this->id}/declined");
+        return new FacebookIterator($this->sdk, "/{$this->id}/declined");
     }      
 
     public function maybe() {
-        return $this->sdk->api("/{$this->id}/maybe");
+        return new FacebookIterator($this->sdk, "/{$this->id}/maybe");
     }
 
     public function noResponse() {
-        return $this->sdk->api("/{$this->id}/noreply");
-    }  
+        return new FacebookIterator($this->sdk, "/{$this->id}/noreply");
+    }
 }

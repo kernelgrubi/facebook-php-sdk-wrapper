@@ -22,14 +22,15 @@ class EventsRequestTest extends \PHPUnit_Framework_TestCase {
         $this->request->id($eventId)->one();
     }
 
-    public function testUsers() {
+    public function testInvited() {
         $eventId = 'id do evento';
 
         $this->sdkMock->expects($this->once())
             ->method('api')
             ->with($this->equalTo("/$eventId/invited"));
 
-        $this->request->id($eventId)->users()->all();
+        $iterator = $this->request->id($eventId)->users()->invited();
+        $iterator->result();
     }
 
     public function testAccepted() {
@@ -39,7 +40,8 @@ class EventsRequestTest extends \PHPUnit_Framework_TestCase {
             ->method('api')
             ->with($this->equalTo("/$eventId/attending"));
 
-        $this->request->id($eventId)->users()->accepted();
+        $iterator = $this->request->id($eventId)->users()->accepted();
+        $iterator->result();
     }
 
     public function testDenied() {
@@ -49,7 +51,8 @@ class EventsRequestTest extends \PHPUnit_Framework_TestCase {
             ->method('api')
             ->with($this->equalTo("/$eventId/declined"));
 
-        $this->request->id($eventId)->users()->denied();
+        $iterator = $this->request->id($eventId)->users()->denied();
+        $iterator->result();
     }
 
     public function testMaybe() {
@@ -59,7 +62,8 @@ class EventsRequestTest extends \PHPUnit_Framework_TestCase {
             ->method('api')
             ->with($this->equalTo("/$eventId/maybe"));
 
-        $this->request->id($eventId)->users()->maybe();
+        $iterator = $this->request->id($eventId)->users()->maybe();
+        $iterator->result();
     }
 
     public function testNoResponse() {
@@ -69,6 +73,7 @@ class EventsRequestTest extends \PHPUnit_Framework_TestCase {
             ->method('api')
             ->with($this->equalTo("/$eventId/noreply"));
 
-        $this->request->id($eventId)->users()->noResponse();
+        $iterator = $this->request->id($eventId)->users()->noResponse();
+        $iterator->result();
     }    
 }
