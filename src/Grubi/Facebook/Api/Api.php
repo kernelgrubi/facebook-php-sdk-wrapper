@@ -5,7 +5,7 @@ use Grubi\Facebook\Api\Requests\EventsRequest;
 use Grubi\Facebook\Api\Requests\UsersRequest;
 
 class Api {
-    public function __construct(\Facebook $sdk = null, $appId = null, $appSecret = null) {
+    public function __construct($sdk = null, $appId = null, $appSecret = null) {
         if(!empty($appId) && !empty($appSecret)) {
             $this->sdk = new \Facebook(array(
                 'appId' => $appId,
