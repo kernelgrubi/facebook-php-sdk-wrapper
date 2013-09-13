@@ -46,6 +46,32 @@ class FacebookIteratorTest extends \PHPUnit_Framework_TestCase {
         $this->iter->result();
     }
 
+    public function testIteratorEnd() {
+        $this->sdkMock->expects($this->at(0))
+            ->method('api')
+            ->with($this->equalTo($this->baseUrl))
+            ->will(
+                $this->returnValue(
+                    $this->mockResponse()
+                )
+            );
+
+        $this->sdkMock->expects($this->at(1))
+            ->method('api')
+            ->with($this->equalTo($this->nextUrl))
+            ->will(
+                $this->returnValue(
+                    $this->mockEmptyResponse()
+                )
+            );
+
+        $this->iter->result();
+        $this->iter->next();
+        $result = $this->iter->result();
+
+        $this->assertFalse($result);
+    }
+
     private function mockResponse() {
         return array(
             'data' => array(
@@ -65,5 +91,16 @@ class FacebookIteratorTest extends \PHPUnit_Framework_TestCase {
                 'next' => $this->nextUrl
             )
         );
+    }
+
+    private function mockEmptyResponse() {
+        return array(
+            'data' => array(
+            ),
+
+            'paging' => array(
+                'next' => $this->nextUrl
+            )
+        );    
     }
 }
