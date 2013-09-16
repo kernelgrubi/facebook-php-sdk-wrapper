@@ -14,6 +14,10 @@ class FacebookIterator {
 
     public function result() {
         $result = $this->sdk->api($this->url);
+
+        if(!isset($result['data']))
+            return false;
+
         if(isset($result['paging']))
             $this->paginationUrl = $result['paging']['next'];
         
