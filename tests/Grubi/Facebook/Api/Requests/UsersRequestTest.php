@@ -30,7 +30,7 @@ class UsersRequestTest extends \PHPUnit_Framework_TestCase {
         $this->request->me();
     }
 
-    public function testOneFieldsSelection($value='')
+    public function testOneFieldsSelection()
     {
         $userId = 'id do usuario';
 
@@ -41,12 +41,24 @@ class UsersRequestTest extends \PHPUnit_Framework_TestCase {
         $this->request->id($userId)->fields(array('id', 'picture', 'name'))->one();
     }
 
-    public function testMeFieldsSelection($value='')
+    public function testMeFieldsSelection()
     {
         $this->sdkMock->expects($this->once())
             ->method('api')
             ->with($this->equalTo('/me?fields=id,picture,name'));
 
         $this->request->fields(array('id', 'picture', 'name'))->me();
+    }
+
+    public function testRelatives()
+    {
+        $userId = 'id do usuario';
+
+        $this->sdkMock->expects($this->once())
+            ->method('api')
+            ->with($this->equalTo("/$userId/family"));
+
+        $iterator = $this->request->id($userId)->relatives();
+        $iterator->result();
     }
 }

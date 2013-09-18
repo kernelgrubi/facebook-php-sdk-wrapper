@@ -1,6 +1,8 @@
 <?php
 namespace Grubi\Facebook\Api\Requests;
 
+use Grubi\Facebook\Api\Iterator\FacebookIterator;
+
 class UsersRequest extends BaseRequest {
 
     private $fields = array();
@@ -21,6 +23,10 @@ class UsersRequest extends BaseRequest {
 
     public function all() {
         throw new Exception("U mad bro?");
+    }
+
+    public function relatives() {
+        return new FacebookIterator($this->sdk, "/{$this->id}/family");
     }
 
     private function buildRequestUri($prefixPath)
