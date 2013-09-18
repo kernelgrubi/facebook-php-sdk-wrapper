@@ -29,4 +29,24 @@ class UsersRequestTest extends \PHPUnit_Framework_TestCase {
 
         $this->request->me();
     }
+
+    public function testOneFieldsSelection($value='')
+    {
+        $userId = 'id do usuario';
+
+        $this->sdkMock->expects($this->once())
+            ->method('api')
+            ->with($this->equalTo(sprintf('/%s?fields=id,picture,name', $userId)));
+
+        $this->request->id($userId)->fields(array('id', 'picture', 'name'))->one();
+    }
+
+    public function testMeFieldsSelection($value='')
+    {
+        $this->sdkMock->expects($this->once())
+            ->method('api')
+            ->with($this->equalTo('/me?fields=id,picture,name'));
+
+        $this->request->fields(array('id', 'picture', 'name'))->me();
+    }
 }

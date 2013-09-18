@@ -2,6 +2,11 @@
 namespace Grubi\Facebook\Api\Requests;
 
 abstract class BaseRequest {
+
+    protected $sdk;
+
+    protected $id;
+
     public function __construct($sdk) {
         $this->sdk = $sdk;
     }
