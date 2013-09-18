@@ -17,22 +17,22 @@ class EventsRequest extends BaseRequest {
     }
 
     public function invited() {
-        return new FacebookIterator($this->sdk, "/{$this->id}/invited");
+        return new FacebookIterator($this->sdk, $this->buildRequestUri("{$this->id}/invited"));
     }
 
     public function accepted() {
-        return new FacebookIterator($this->sdk, "/{$this->id}/attending");
+        return new FacebookIterator($this->sdk, $this->buildRequestUri("{$this->id}/attending"));
     }
 
     public function denied() {
-        return new FacebookIterator($this->sdk, "/{$this->id}/declined");
+        return new FacebookIterator($this->sdk, $this->buildRequestUri("{$this->id}/declined"));
     }      
 
     public function maybe() {
-        return new FacebookIterator($this->sdk, "/{$this->id}/maybe");
+        return new FacebookIterator($this->sdk, $this->buildRequestUri("{$this->id}/maybe"));
     }
 
     public function noResponse() {
-        return new FacebookIterator($this->sdk, "/{$this->id}/noreply");
+        return new FacebookIterator($this->sdk, $this->buildRequestUri("{$this->id}/noreply"));
     }
 }

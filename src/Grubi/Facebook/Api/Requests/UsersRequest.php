@@ -5,14 +5,6 @@ use Grubi\Facebook\Api\Iterator\FacebookIterator;
 
 class UsersRequest extends BaseRequest {
 
-    private $fields = array();
-
-    public function fields(array $fields) {
-        $this->fields = $fields;
-
-        return $this;
-    }
-    
     public function one() {
         return $this->sdk->api($this->buildRequestUri($this->id));
     }
@@ -26,17 +18,6 @@ class UsersRequest extends BaseRequest {
     }
 
     public function relatives() {
-        return new FacebookIterator($this->sdk, "/{$this->id}/family");
-    }
-
-    private function buildRequestUri($prefixPath)
-    {
-        $requestUri = '/' . $prefixPath;
-
-        if ($this->fields) {
-            $requestUri .= '?fields=' . implode(',', $this->fields); 
-        }
-
-        return $requestUri;
+        return new FacebookIterator($this->sdk, $this->buildRequestUri("{$this->id}/family"));
     }
 }
