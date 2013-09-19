@@ -8,8 +8,11 @@ class FacebookIterator {
     }
 
     public function next() {
-        $this->url = $this->paginationUrl;
-        $this->paginationUrl = null;
+        if(isset($this->paginationUrl)) {
+            $paginationUrl = str_replace('https://graph.facebook.com', '', $this->paginationUrl);
+            $this->url = $paginationUrl;
+            $this->paginationUrl = null;
+        }
     }
 
     public function result() {
@@ -19,7 +22,8 @@ class FacebookIterator {
             return false;
 
         if(isset($result['paging']))
-            $this->paginationUrl = $result['paging']['next'];
+            if(isset($result['paging']['next']))
+                $this->paginationUrl = $result['paging']['next'];
         
         return (count($result['data']) > 0) ? $result['data'] : false;
     }

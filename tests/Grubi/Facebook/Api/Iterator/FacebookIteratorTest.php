@@ -39,7 +39,12 @@ class FacebookIteratorTest extends \PHPUnit_Framework_TestCase {
 
         $this->sdkMock->expects($this->at(1))
             ->method('api')
-            ->with($this->equalTo($this->nextUrl));
+            ->with($this->equalTo($this->nextUrl))
+            ->will(
+                $this->returnValue(
+                    $this->mockEmptyResponse()
+                )
+            );
 
         $this->iter->result();
         $this->iter->next();
